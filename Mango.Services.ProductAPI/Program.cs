@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using Mango.Services.ProductAPI;
 using System;
+using Mango.Services.ProductAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -19,7 +20,7 @@ options.UseSqlServer(connectionString));
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
